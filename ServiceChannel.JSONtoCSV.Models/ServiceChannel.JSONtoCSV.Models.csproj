@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B9DA5161-A793-4435-B9F4-CF65B8197B68}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ServiceChannel.JSONtoCSV</RootNamespace>
-    <AssemblyName>ServiceChannel.JSONtoCSV</AssemblyName>
+    <ProjectGuid>{9EEF6C7F-F25C-4227-8255-6FF0B647213A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ServiceChannel.JSONtoCSV.Models</RootNamespace>
+    <AssemblyName>ServiceChannel.JSONtoCSV.Models</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,21 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Location.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ServiceChannel.JSONtoCSV.Core\ServiceChannel.JSONtoCSV.Core.csproj">
-      <Project>{d79a061b-0909-479a-b474-809b7ef84756}</Project>
-      <Name>ServiceChannel.JSONtoCSV.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ServiceChannel.JSONtoCSV.Models\ServiceChannel.JSONtoCSV.Models.csproj">
-      <Project>{9eef6c7f-f25c-4227-8255-6ff0b647213a}</Project>
-      <Name>ServiceChannel.JSONtoCSV.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

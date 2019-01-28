@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B9DA5161-A793-4435-B9F4-CF65B8197B68}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ServiceChannel.JSONtoCSV</RootNamespace>
-    <AssemblyName>ServiceChannel.JSONtoCSV</AssemblyName>
+    <ProjectGuid>{D79A061B-0909-479A-B474-809B7EF84756}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ServiceChannel.JSONtoCSV.Core</RootNamespace>
+    <AssemblyName>ServiceChannel.JSONtoCSV.Core</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,17 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Job.cs" />
+    <Compile Include="JobCompleteEventArgs.cs" />
+    <Compile Include="JobErrorEventArgs.cs" />
+    <Compile Include="JobProcessedEventArgs.cs" />
+    <Compile Include="Worker.cs" />
+    <Compile Include="WorkQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServiceChannel.JSONtoCSV.Core\ServiceChannel.JSONtoCSV.Core.csproj">
-      <Project>{d79a061b-0909-479a-b474-809b7ef84756}</Project>
-      <Name>ServiceChannel.JSONtoCSV.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ServiceChannel.JSONtoCSV.Models\ServiceChannel.JSONtoCSV.Models.csproj">
       <Project>{9eef6c7f-f25c-4227-8255-6ff0b647213a}</Project>
       <Name>ServiceChannel.JSONtoCSV.Models</Name>
