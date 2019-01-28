@@ -67,17 +67,18 @@ namespace ServiceChannel.JSONtoCSV
 
         private void OnJobProcessed(object sender, JobProcessedEventArgs e)
         {
-            lock(_workQueue)
+            lock (_workQueue) // Output is not clean when multiple threads are hitting Console.Clear(). A timer may be a better consideration so we don't block!
+            {
                 Console.Clear();
-
-            Console.WriteLine("> Running! Press any key to exit...");
-            Console.WriteLine("---------------------------------------------");
-            Console.WriteLine("In Progress: {0}", _workQueue.Jobs.Count);
-            Console.WriteLine("Total Processed: {0}", _workQueue.SuccessCount + _workQueue.ErrorCount);
-            Console.WriteLine("Successful: {0}", _workQueue.SuccessCount);
-            Console.WriteLine("Errors: {0}", _workQueue.ErrorCount);
-            Console.WriteLine("Maximum Processing Time: {0}", _workQueue.MaxJobTime);
-            Console.WriteLine("---------------------------------------------");
+                Console.WriteLine("> Running! Press any key to exit...");
+                Console.WriteLine("---------------------------------------------");
+                Console.WriteLine("In Progress: {0}", _workQueue.Jobs.Count);
+                Console.WriteLine("Total Processed: {0}", _workQueue.SuccessCount + _workQueue.ErrorCount);
+                Console.WriteLine("Successful: {0}", _workQueue.SuccessCount);
+                Console.WriteLine("Errors: {0}", _workQueue.ErrorCount);
+                Console.WriteLine("Maximum Processing Time: {0}", _workQueue.MaxJobTime);
+                Console.WriteLine("---------------------------------------------");
+            }
         }
     }
 }

@@ -13,14 +13,8 @@ namespace ServiceChannel.JSONtoCSV.Core
 {
     public class Worker
     {
-
         public event EventHandler<JobCompleteEventArgs> JobComplete;
         public event EventHandler<JobErrorEventArgs> JobError;
-
-        public Worker()
-        {
-
-        }
 
         /// <summary>
         /// Processes a Job.
@@ -33,8 +27,27 @@ namespace ServiceChannel.JSONtoCSV.Core
                 Stopwatch sw = new Stopwatch();
                 sw.Start();
 
-                // TODO: Process file and copy to Output folder.
+                // Deserialize the JSON file...
+                String locationsRaw = File.ReadAllText(job.Path);
+                IEnumerable<Location> locations = JsonConvert.DeserializeObject<List<Location>>(locationsRaw);
 
+                var cities = locations.GroupBy
+                (
+                    loc => loc.City.ToLower(),
+                    loc => loc.Type.Count(), (city, locType) => new { City = city, Type = locType, Count = locType.Count() }
+                );
+
+                // Write the CSV file...
+                using (var writer = new StreamWriter(job.Path.Replace("Incoming", "Outgoing").Replace(".json", ".csv")))
+                {
+                    writer.WriteLine(string.Format("\"City\", \"Type\", \"Count\""));
+
+                    foreach (var result in cities)
+                    {
+                        writer.WriteLine(string.Format("\"{0}\", \"{1}\", \"{2}\"", result.City, result.Type, result.Count));
+                        writer.Flush();
+                    }
+                }               
 
                 File.Move(job.Path, job.Path.Replace("Incoming", "Success"));
 
