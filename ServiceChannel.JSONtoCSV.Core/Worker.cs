@@ -34,7 +34,8 @@ namespace ServiceChannel.JSONtoCSV.Core
                 var cities = locations.GroupBy
                 (
                     loc => loc.City.ToLower(),
-                    loc => loc.Type.Count(), (city, locType) => new { City = city, Type = locType, Count = locType.Count() }
+                    loc => loc.Type.Count(),
+                    (city, locType) => new { City = city, Type = locType, Count = locType.Count() }
                 );
 
                 // Write the CSV file...
@@ -56,10 +57,15 @@ namespace ServiceChannel.JSONtoCSV.Core
             catch (Exception ex)
             {
                 File.Move(job.Path, job.Path.Replace("Incoming", "Error"));
-                
-                // TODO: Dump ex to a file along side the json file.
-                
-                this.OnJobError(new JobErrorEventArgs(this, job, ex.ToString()));
+
+                // Write the error file...
+                using (var writer = new StreamWriter(job.Path.Replace("Incoming", "Error").Replace(".json", ".err")))
+                {
+                    writer.WriteLine(ex.ToString());
+                    writer.Flush();
+                }
+
+                    this.OnJobError(new JobErrorEventArgs(this, job, ex.ToString()));
             }
             finally
             {
